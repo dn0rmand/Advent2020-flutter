@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:advent/days/baseDay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +114,8 @@ class _Day4 extends BaseDayState<Day4> {
       return false;
     }
     List<String> valid = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-    for (var c in value.substring(1).characters) {
+    for (var i = 1; i < value.length; i++) {
+      var c = value[i];
       if (!valid.contains((c))) {
         return false;
       }
