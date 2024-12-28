@@ -38,15 +38,16 @@ class BaseDayState<T extends BaseDay> extends State<T> {
     if (!done) {
       return CircularProgressIndicator();
     } else {
+      var style = new TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.redAccent);
       return Container(
           padding: EdgeInsets.all(20),
           child: Column(children: [
-            Text('Part 1', style: Theme.of(context).textTheme.headlineSmall),
+            Text('Part 1', style: style),
             Text('$part1Value', style: Theme.of(context).textTheme.headlineMedium),
-            Text('Part 2', style: Theme.of(context).textTheme.headlineSmall),
+            Text('Part 2', style: style),
             Text('$part2Value', style: Theme.of(context).textTheme.headlineMedium),
-            Text('Executed in', style: Theme.of(context).textTheme.headlineSmall),
-            Text('$duration', style: Theme.of(context).textTheme.headlineMedium),
+            Text('Executed in', style: style),
+            Text('$duration', style: Theme.of(context).textTheme.titleLarge),
           ]));
     }
   }
@@ -54,7 +55,7 @@ class BaseDayState<T extends BaseDay> extends State<T> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Day ${widget.day}')),
+      appBar: AppBar(title: Text('Day ${widget.day}', style: Theme.of(context).textTheme.headlineMedium)),
       body: Center(child: getContent()),
     );
   }

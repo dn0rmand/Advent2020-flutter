@@ -135,7 +135,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Helper.AppTitle),
+        title: Text(Helper.AppTitle, style: Theme.of(context).textTheme.headlineLarge),
       ),
       body: Container(
         alignment: Alignment.topCenter,
