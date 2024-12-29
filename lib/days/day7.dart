@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:advent/days/baseDay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +95,7 @@ class _Day7 extends BaseDayState<Day7> {
   Future<int> part1(List<Bag> input) async {
     var total = 0;
 
-    var shinyGold = input.firstWhere((b) => b.color == 'shiny gold')!;
+    var shinyGold = input.firstWhere((b) => b.color == 'shiny gold');
 
     for (var bag in input) {
       if (bag.Contains(shinyGold)) {
@@ -108,7 +106,7 @@ class _Day7 extends BaseDayState<Day7> {
   }
 
   Future<int> part2(List<Bag> input) async {
-    var shinyGold = input.firstWhere((b) => b.color == 'shiny gold')!;
+    var shinyGold = input.firstWhere((b) => b.color == 'shiny gold');
 
     return shinyGold.count;
   }

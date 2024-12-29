@@ -12,6 +12,8 @@ class Day10 extends BaseDay {
 }
 
 class _Day10 extends BaseDayState<Day10> {
+  final memoize = new Map<int, int>();
+
   @override
   Future execute() async {
     var input = await loadInput();
@@ -22,17 +24,56 @@ class _Day10 extends BaseDayState<Day10> {
     await super.execute();
   }
 
-  Future<List<String>> loadInput() async {
+  Future<List<int>> loadInput() async {
     var strings = await Helper.loadData(widget.day);
-
-    return strings;
+    var adapters = strings.map((s) => int.parse(s)).toList();
+    adapters.sort((a, b) => a - b);
+    return adapters;
   }
 
-  Future<int> part1(List<String> input) async {
-    return 0;
+  Future<int> part1(List<int> adapters) async {
+    var ones = 0;
+    var threes = 1;
+
+    var current = 0;
+    for (var i = 0; i < adapters.length; i++) {
+      var jolt = adapters[i];
+      var diff = jolt - current;
+      if (diff == 1) {
+        ones++;
+      } else if (diff == 3) {
+        threes++;
+      }
+      current = jolt;
+    }
+    return ones * threes;
   }
 
-  Future<int> part2(List<String> input) async {
-    return 0;
+  int ways(List<int> adapters, int current, int index) {
+    if (index >= adapters.length) {
+      return 1;
+    }
+    var key = (current * adapters.length) + index;
+    if (memoize.containsKey(key)) {
+      return memoize[key]!;
+    }
+    var total = 0;
+    for (var i = index; i < adapters.length; i++) {
+      var d = adapters[i] - current;
+      if (d < 0) {
+        throw new Exception("That's not possible");
+      }
+      if (d > 3) {
+        break;
+      } else {
+        total += ways(adapters, adapters[i], i + 1);
+      }
+    }
+    memoize[key] = total;
+    return total;
+  }
+
+  Future<int> part2(List<int> adapters) async {
+    return ways(adapters, 0, 0);
   }
 }
