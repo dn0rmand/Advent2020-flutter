@@ -12,6 +12,7 @@ class Day13 extends BaseDay {
 }
 
 class _Day13 extends BaseDayState<Day13> {
+  int earliestDepartTime = 0;
   @override
   Future execute() async {
     var input = await loadInput();
@@ -22,17 +23,44 @@ class _Day13 extends BaseDayState<Day13> {
     await super.execute();
   }
 
-  Future<List<String>> loadInput() async {
+  Future<List<int>> loadInput() async {
     var strings = await Helper.loadData(widget.day);
-
-    return strings;
+    earliestDepartTime = int.parse(strings[0]);
+    var ids = strings[1].split(',').map((s) => s == 'x' ? -1 : int.parse(s)).toList();
+    return ids;
   }
 
-  Future<int> part1(List<String> input) async {
-    return 0;
+  Future<int> part1(List<int> input) async {
+    var min = earliestDepartTime;
+    var id = -1;
+
+    for (var i in input.where((i) => i > 0)) {
+      var d = i - (earliestDepartTime % i);
+      if (d < min) {
+        id = i;
+        min = d;
+      }
+    }
+    return id * min;
   }
 
-  Future<int> part2(List<String> input) async {
-    return 0;
+  Future<int> part2(List<int> input) async {
+    var answer = 0;
+    var offset = 1;
+
+    for (var index = 0; index < input.length; index++) {
+      var id = input[index];
+      if (id <= 0) {
+        continue;
+      }
+      var target = (id - (index % id)) % id;
+
+      while ((answer % id) != target) {
+        answer += offset;
+      }
+      offset = Helper.lcm(offset, id);
+    }
+
+    return answer;
   }
 }
