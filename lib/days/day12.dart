@@ -4,6 +4,80 @@ import 'package:flutter/material.dart';
 
 import '../helper.dart';
 
+class Instruction {
+  String direction = '?';
+  int quantity = 0;
+
+  Instruction(String value) {
+    direction = value[0];
+    quantity = int.tryParse(value.substring(1))!;
+  }
+}
+
+class Day12State {
+  int x = 0;
+  int y = 0;
+  int dx = 1;
+  int dy = 0;
+
+  Day12State(int dx, int dy) {
+    this.dx = dx;
+    this.dy = dy;
+  }
+
+  void rotateR(int angle) {
+    while (angle > 0) {
+      angle -= 90;
+      var tmp = dx;
+      dx = -dy;
+      dy = tmp;
+    }
+  }
+
+  void move(Instruction instruction, bool part2) {
+    switch (instruction.direction) {
+      case 'F':
+        x += dx * instruction.quantity;
+        y += dy * instruction.quantity;
+        break;
+      case 'R':
+        rotateR(instruction.quantity);
+        break;
+      case 'L':
+        rotateR(360 - instruction.quantity);
+        break;
+      case 'N':
+        if (part2) {
+          dy -= instruction.quantity;
+        } else {
+          y -= instruction.quantity;
+        }
+        break;
+      case 'S':
+        if (part2) {
+          dy += instruction.quantity;
+        } else {
+          y += instruction.quantity;
+        }
+        break;
+      case 'E':
+        if (part2) {
+          dx += instruction.quantity;
+        } else {
+          x += instruction.quantity;
+        }
+        break;
+      case 'W':
+        if (part2) {
+          dx -= instruction.quantity;
+        } else {
+          x -= instruction.quantity;
+        }
+        break;
+    }
+  }
+}
+
 class Day12 extends BaseDay {
   Day12({Key? key}) : super(day: 12, key: key);
 
@@ -22,17 +96,25 @@ class _Day12 extends BaseDayState<Day12> {
     await super.execute();
   }
 
-  Future<List<String>> loadInput() async {
+  Future<List<Instruction>> loadInput() async {
     var strings = await Helper.loadData(widget.day);
 
-    return strings;
+    return strings.map((v) => new Instruction(v)).toList();
   }
 
-  Future<int> part1(List<String> input) async {
-    return 0;
+  Future<int> part1(List<Instruction> input) async {
+    var state = new Day12State(1, 0);
+    for (var instruction in input) {
+      state.move(instruction, false);
+    }
+    return state.x.abs() + state.y.abs();
   }
 
-  Future<int> part2(List<String> input) async {
-    return 0;
+  Future<int> part2(List<Instruction> input) async {
+    var state = new Day12State(10, -1);
+    for (var instruction in input) {
+      state.move(instruction, true);
+    }
+    return state.x.abs() + state.y.abs();
   }
 }
