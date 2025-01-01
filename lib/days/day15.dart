@@ -22,17 +22,42 @@ class _Day15 extends BaseDayState<Day15> {
     await super.execute();
   }
 
-  Future<List<String>> loadInput() async {
-    var strings = await Helper.loadData(widget.day);
+  Future<List<int>> loadInput() async {
+    var line = (await Helper.loadData(widget.day)).first;
 
-    return strings;
+    return line.split(',').map((s) => int.parse(s)).toList();
+    // return [3, 1, 2];
   }
 
-  Future<int> part1(List<String> input) async {
-    return 0;
+  int emulate(List<int> input, int turns) {
+    var turn = input.length;
+    var indexes = List<int>.filled(turns + 2, 0);
+
+    for (var i = 0; i < input.length; i++) {
+      var v = input[i];
+      indexes[v] = i + 1;
+    }
+
+    var lastSpoken = 0;
+    while (turn < turns - 1) {
+      ++turn;
+      if (indexes[lastSpoken] > 0) {
+        var i = turn - indexes[lastSpoken];
+        indexes[lastSpoken] = turn;
+        lastSpoken = i;
+      } else {
+        indexes[lastSpoken] = turn;
+        lastSpoken = 0;
+      }
+    }
+    return lastSpoken;
   }
 
-  Future<int> part2(List<String> input) async {
-    return 0;
+  Future<int> part1(List<int> input) async {
+    return emulate(input, 2020);
+  }
+
+  Future<int> part2(List<int> input) async {
+    return emulate(input, 30000000);
   }
 }
