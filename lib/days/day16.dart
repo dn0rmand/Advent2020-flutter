@@ -1,3 +1,5 @@
+library day16;
+
 import 'dart:collection';
 
 import 'package:advent/days/baseDay.dart';
@@ -6,25 +8,25 @@ import 'package:flutter/material.dart';
 
 import '../helper.dart';
 
-class Day16Range {
+class Range {
   int from = 0;
   int to = 0;
 
-  Day16Range(String line) {
+  Range(String line) {
     var l = line.split('-').map((s) => int.parse(s));
     this.from = l.first;
     this.to = l.last;
   }
 }
 
-class Day16Rule {
+class Rule {
   String name = '';
-  List<Day16Range> ranges = List.empty(growable: true);
+  List<Range> ranges = List.empty(growable: true);
 
-  Day16Rule(String line) {
+  Rule(String line) {
     var words = line.split(': ');
     name = words.first;
-    ranges = words.last.split(' or ').map((e) => new Day16Range(e)).toList();
+    ranges = words.last.split(' or ').map((e) => new Range(e)).toList();
   }
 
   bool isValid(int value) {
@@ -42,7 +44,7 @@ class Day16 extends BaseDay {
 }
 
 class _Day16 extends BaseDayState<Day16> {
-  List<Day16Rule> rules = List.empty(growable: true);
+  List<Rule> rules = List.empty(growable: true);
   List<int> myTicket = List.empty(growable: false);
   List<List<int>> nearByTickets = List.empty(growable: false);
 
@@ -65,7 +67,7 @@ class _Day16 extends BaseDayState<Day16> {
       if (line == '') {
         break;
       }
-      var rule = new Day16Rule(line);
+      var rule = new Rule(line);
       rules.add(rule);
     }
 

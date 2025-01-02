@@ -1,3 +1,5 @@
+library day14;
+
 import 'package:advent/days/baseDay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +13,12 @@ class Day14 extends BaseDay {
   _Day14 createState() => _Day14();
 }
 
-class Day14Context {
+class Context {
   int sum = 0;
   Map<int, int> memory = new Map<int, int>();
   String mask = '';
 
-  Day14Context() {}
+  Context() {}
 
   void setInnerValue(int address, int value, int bit) {
     if (bit == 0) {
@@ -114,7 +116,7 @@ class _Day14 extends BaseDayState<Day14> {
   }
 
   Future<int> part2(List<String> input) async {
-    var context = new Day14Context();
+    var context = new Context();
 
     for (var s in input) {
       if (s.startsWith('mask')) {

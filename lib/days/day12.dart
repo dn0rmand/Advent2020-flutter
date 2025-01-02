@@ -1,3 +1,5 @@
+library day12;
+
 import 'package:advent/days/baseDay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +16,13 @@ class Instruction {
   }
 }
 
-class Day12State {
+class Position {
   int x = 0;
   int y = 0;
   int dx = 1;
   int dy = 0;
 
-  Day12State(int dx, int dy) {
+  Position(int dx, int dy) {
     this.dx = dx;
     this.dy = dy;
   }
@@ -103,7 +105,7 @@ class _Day12 extends BaseDayState<Day12> {
   }
 
   Future<int> part1(List<Instruction> input) async {
-    var state = new Day12State(1, 0);
+    var state = new Position(1, 0);
     for (var instruction in input) {
       state.move(instruction, false);
     }
@@ -111,7 +113,7 @@ class _Day12 extends BaseDayState<Day12> {
   }
 
   Future<int> part2(List<Instruction> input) async {
-    var state = new Day12State(10, -1);
+    var state = new Position(10, -1);
     for (var instruction in input) {
       state.move(instruction, true);
     }

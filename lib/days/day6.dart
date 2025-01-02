@@ -1,3 +1,5 @@
+library day6;
+
 import 'dart:collection';
 
 import 'package:advent/days/baseDay.dart';
