@@ -6,13 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../helper.dart';
 
-class Day14 extends BaseDay {
-  Day14({Key? key}) : super(day: 14, key: key);
-
-  @override
-  _Day14 createState() => _Day14();
-}
-
 class Context {
   int sum = 0;
   Map<int, int> memory = new Map<int, int>();
@@ -55,7 +48,14 @@ class Context {
   }
 }
 
-class _Day14 extends BaseDayState<Day14> {
+class Day14 extends BaseDay {
+  Day14({Key? key}) : super(day: 14, key: key);
+
+  @override
+  _Day14 createState() => _Day14();
+}
+
+class _Day14 extends BaseDayState<Day14, int, int> {
   int orMask = 0;
   int andMask = 0;
 

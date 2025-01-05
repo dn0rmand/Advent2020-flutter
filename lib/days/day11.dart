@@ -13,7 +13,7 @@ class Day11 extends BaseDay {
   _Day11 createState() => _Day11();
 }
 
-class _Day11 extends BaseDayState<Day11> {
+class _Day11 extends BaseDayState<Day11, int, int> {
   int width = 0;
   int height = 0;
   List<int> map = List.empty();

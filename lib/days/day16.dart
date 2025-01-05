@@ -43,7 +43,7 @@ class Day16 extends BaseDay {
   _Day16 createState() => _Day16();
 }
 
-class _Day16 extends BaseDayState<Day16> {
+class _Day16 extends BaseDayState<Day16, int, int> {
   List<Rule> rules = List.empty(growable: true);
   List<int> myTicket = List.empty(growable: false);
   List<List<int>> nearByTickets = List.empty(growable: false);

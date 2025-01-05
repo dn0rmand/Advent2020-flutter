@@ -13,7 +13,7 @@ class Day4 extends BaseDay {
   _Day4 createState() => _Day4();
 }
 
-class _Day4 extends BaseDayState<Day4> {
+class _Day4 extends BaseDayState<Day4, int, int> {
   List<String> requiredKeys = [
     "byr",
     "iyr",

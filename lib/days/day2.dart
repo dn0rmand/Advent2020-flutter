@@ -14,7 +14,7 @@ class Day2 extends BaseDay {
   _Day2 createState() => _Day2();
 }
 
-class _Day2 extends BaseDayState<Day2> {
+class _Day2 extends BaseDayState<Day2, int, int> {
   @override
   Future execute() async {
     var input = await loadInput();

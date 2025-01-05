@@ -13,7 +13,7 @@ class Day13 extends BaseDay {
   _Day13 createState() => _Day13();
 }
 
-class _Day13 extends BaseDayState<Day13> {
+class _Day13 extends BaseDayState<Day13, int, int> {
   int earliestDepartTime = 0;
   @override
   Future execute() async {

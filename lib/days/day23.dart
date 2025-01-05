@@ -5,28 +5,31 @@ import 'package:flutter/foundation.dart';
 import 'package:tuple/tuple.dart';
 
 class ListItem {
-  ListItem? previous;
-  ListItem? next;
-  int value = 0;
+  late ListItem? previous;
+  late ListItem? next;
+  late int value;
+
+  ListItem(int value) {
+    this.value = value;
+  }
+
+  static ListItem createItem(int value, Map<int, ListItem> map) {
+    if (map.containsKey(value)) {
+      return map[value]!;
+    }
+
+    map[value] = ListItem(value);
+    if (value > 1) {
+      map[value]!.previous = createItem(value - 1, map);
+    }
+
+    return map[value]!;
+  }
 }
 
 class Runner {
   static const INPUT = [3, 1, 8, 9, 4, 6, 5, 7, 2];
   static const ONE_MILLION = 1000000;
-
-  static ListItem createItem(value, Map<int, ListItem> map) {
-    if (map.containsKey(value)) {
-      return map[value]!;
-    }
-    var item = ListItem();
-
-    item.value = value;
-
-    map[value] = item;
-    if (value > 1) item.previous = createItem(value - 1, map);
-
-    return item;
-  }
 
   static Tuple2<ListItem, ListItem> loadInput(int part) {
     var items = Map<int, ListItem>();
@@ -36,16 +39,16 @@ class Runner {
 
     for (int value in INPUT) {
       if (last == null) {
-        last = first = createItem(value, items);
+        last = first = ListItem.createItem(value, items);
       } else {
-        last.next = createItem(value, items);
+        last.next = ListItem.createItem(value, items);
         last = last.next;
       }
     }
 
     if (part == 2) {
       for (var i = 10; i <= ONE_MILLION; i++) {
-        last!.next = createItem(i, items);
+        last!.next = ListItem.createItem(i, items);
         last = last.next;
       }
     }
@@ -106,7 +109,7 @@ class Day23 extends BaseDay {
   _Day23 createState() => _Day23();
 }
 
-class _Day23 extends BaseDayState<Day23> {
+class _Day23 extends BaseDayState<Day23, int, int> {
   @override
   Future execute() async {
     var p1 = compute(part, 1);

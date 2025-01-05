@@ -9,15 +9,16 @@ abstract class BaseDay extends StatefulWidget {
   final int? day;
 }
 
-class BaseDayState<T extends BaseDay> extends State<T> {
+class BaseDayState<T extends BaseDay, V1, V2> extends State<T> {
   bool done = false;
-  int part1Value = 0, part2Value = 0;
+  late V1? part1Value;
+  late V2? part2Value;
   Duration? duration;
 
   @override
   initState() {
-    part1Value = 0;
-    part2Value = 0;
+    part1Value = null;
+    part2Value = null;
     super.initState();
 
     internalExecute();

@@ -13,7 +13,7 @@ class Day10 extends BaseDay {
   _Day10 createState() => _Day10();
 }
 
-class _Day10 extends BaseDayState<Day10> {
+class _Day10 extends BaseDayState<Day10, int, int> {
   final memoize = new Map<int, int>();
 
   @override

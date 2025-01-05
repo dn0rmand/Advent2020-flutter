@@ -80,7 +80,7 @@ class Day19 extends BaseDay {
   _Day19 createState() => _Day19();
 }
 
-class _Day19 extends BaseDayState<Day19> {
+class _Day19 extends BaseDayState<Day19, int, int> {
   late Rule rule0;
   late List<String> messages;
   late Map<int, Rule> allRules;
