@@ -13,28 +13,42 @@ class Day25 extends BaseDay {
   _Day25 createState() => _Day25();
 }
 
-class _Day25 extends BaseDayState<Day25, int, int> {
+class _Day25 extends BaseDayState<Day25, int, String> {
+  late int cardPublicKey;
+  late int doorPublicKey;
+
   @override
   Future execute() async {
-    var input = await loadInput();
+    await loadInput();
 
-    part1Value = await part1(input);
-    part2Value = await part2(input);
+    part1Value = await part1();
+    part2Value = await part2();
 
     await super.execute();
   }
 
-  Future<List<String>> loadInput() async {
+  Future<void> loadInput() async {
     var strings = await Helper.loadData(widget.day);
 
-    return strings;
+    cardPublicKey = int.parse(strings[0]);
+    doorPublicKey = int.parse(strings[1]);
   }
 
-  Future<int> part1(List<String> input) async {
-    return 0;
+  Future<int> part1() async {
+    var k = 1;
+    var loop = 0;
+    while (true) {
+      loop++;
+      k = (k * 7) % 20201227;
+      if (k == cardPublicKey) {
+        return doorPublicKey.modPow(loop, 20201227);
+      } else if (k == doorPublicKey) {
+        return cardPublicKey.modPow(loop, 20201227);
+      }
+    }
   }
 
-  Future<int> part2(List<String> input) async {
-    return 0;
+  Future<String> part2() async {
+    return "Merry Christmas";
   }
 }
